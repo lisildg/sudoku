@@ -1,12 +1,13 @@
-
 .sudoku {
   text-align: center;
 }
 
 .sudoku-grid {
   display: grid;
-  grid-template-columns: repeat(9, 40px);
+  grid-template-columns: repeat(9, 1fr); /* Cambiado a 1fr para dividir igualmente el ancho en 9 columnas */
   grid-gap: 1px;
+  width: max-content; /* Asegura que el ancho de la tabla se ajuste al contenido */
+  margin: 0 auto; /* Centra la tabla en el contenedor */
 }
 
 .sudoku-row {
@@ -22,4 +23,3 @@
   border: 1px solid #000;
   font-size: 20px;
 }
-
