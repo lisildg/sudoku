@@ -58,33 +58,47 @@ export default function Home() {
     }
 
     function generateSudoku() {
-      const grid = JSON.parse(JSON.stringify(initialGrid)); // Create a deep copy of initialGrid
-      if (solveSudoku(0, 0, grid)) {
-        setSudokuGrid(grid);
+      const grid = JSON.parse(JSON.stringify(initialGrid));
+      solveSudoku(0, 0, grid);
+      
+      // Clear some cells to create spaces for the player
+      for (let i = 0; i < N; i++) {
+        for (let j = 0; j < N; j++) {
+          if (Math.random() < 0.4) {
+            grid[i][j] = 0;
+          }
+        }
       }
+
+      setSudokuGrid(grid);
     }
 
     generateSudoku();
   }, []);
 
   return (
-    <section className="text-center">
-      <table className="border-collapse border border-black m-auto">
-        <tbody>
-          {sudokuGrid.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              {row.map((cell, colIndex) => (
-                <td
-                  key={colIndex}
-                  className="border border-black w-10 h-10 text-center"
-                >
-                  {cell === 0 ? "" : cell}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </section>
-  );
+    <section className=" text-center bg-red-600">
+    <table className="sudoku-grid border-collapse border border-black m-auto">
+      <tbody className="text-center">
+        {sudokuGrid.map((row, rowIndex) => (
+          <tr key={rowIndex}>
+            {row.map((cell, colIndex) => (
+              <td
+                key={colIndex}
+                className={` border border-black w-10 h-10 text-center ${
+                  cell === 0 ? "bg-white" : ""
+                }`}
+              >
+                {cell === 0 ? "" : cell}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </section> 
+
+  
+
+);
 }
