@@ -5,6 +5,7 @@ export default function Home() {
   const N = 9; // Tamaño de la cuadrícula 9x9
   const initialGrid = new Array(N).fill(null).map(() => new Array(N).fill(0));
   const [sudokuGrid, setSudokuGrid] = useState(initialGrid);
+  const [selectedNumber, setSelectedNumber] = useState(0);
 
   useEffect(() => {
     // Función para verificar si un número es válido en una celda
@@ -28,6 +29,7 @@ export default function Home() {
       }
 
       return true;
+      
     }
 
     // Función para resolver Sudoku mediante backtracking
@@ -76,29 +78,55 @@ export default function Home() {
     generateSudoku();
   }, []);
 
+  function handleCellClick(row, col) {
+    if (sudokuGrid[row][col] === 0) {
+      const newGrid = [...sudokuGrid];
+      newGrid[row][col] = selectedNumber;
+      setSudokuGrid(newGrid);
+    }
+  }
+
+
   return (
     <div>
-      <section className=" text-center bg-red-600">
-    <table  className="sudoku-grid border-collapse border border-black m-auto">
-      <tbody  className="text-center">
-        {sudokuGrid.map((row, rowIndex) => (
-          <tr  key={rowIndex}>
-            {row.map((cell, colIndex) => (
-              <td
-                key={colIndex}
-                className={` border border-black w-10 h-10 text-center ${
-                  cell === 0 ? "bg-white" : ""
-                }`}
-              >
-                {cell === 0 ? "" : cell}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </section>
-    </div>
+    <section className="text-center bg-red-600">
+      <table className="sudoku-grid border-collapse border border-black m-auto">
+        <tbody className="text-center">
+          {sudokuGrid.map((row, rowIndex) => (
+            <tr key={rowIndex}>
+              {row.map((cell, colIndex) => (
+                <td
+                  key={colIndex}
+                  className={`border border-black w-10 h-10 text-center ${
+                    cell === 0 ? "bg-white" : ""
+                  }`}
+                  onClick={() => handleCellClick(rowIndex, colIndex)}
+                >
+                  {cell === 0 ? "" : cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
 
-);
+    <div className="text-center mt-4">
+      <div>
+        <span>Selecciona un número: </span>
+        <select
+          value={selectedNumber}
+          onChange={(e) => setSelectedNumber(parseInt(e.target.value))}
+        >
+          <option value={0}>Borrar</option>
+          {Array.from({ length: N }, (_, i) => (
+            <option key={i} value={i + 1}>
+              {i + 1}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
+  </div>
+  );
 }
