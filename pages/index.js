@@ -64,7 +64,7 @@ export default function Home() {
       // Clear some cells to create spaces for the player
       for (let i = 0; i < N; i++) {
         for (let j = 0; j < N; j++) {
-          if (Math.random() < 0.4) {
+          if (Math.random() < 0.6) {
             grid[i][j] = 0;
           }
         }
@@ -77,11 +77,12 @@ export default function Home() {
   }, []);
 
   return (
-    <section className=" text-center bg-red-600">
-    <table className="sudoku-grid border-collapse border border-black m-auto">
-      <tbody className="text-center">
+    <div>
+      <section className=" text-center bg-red-600">
+    <table  className="sudoku-grid border-collapse border border-black m-auto">
+      <tbody  className="text-center">
         {sudokuGrid.map((row, rowIndex) => (
-          <tr key={rowIndex}>
+          <tr  key={rowIndex}>
             {row.map((cell, colIndex) => (
               <td
                 key={colIndex}
@@ -96,9 +97,8 @@ export default function Home() {
         ))}
       </tbody>
     </table>
-  </section> 
-
-  
+  </section>
+    </div>
 
 );
 }
