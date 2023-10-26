@@ -121,7 +121,7 @@ function solveSudoku(row, col) {
 
   return (
     <div className=" bg-indigo-600">
-    <section className="text-center flex-center ">
+    <section className="text-center flex flex-center ">
       <table className="sudoku-grid  border-collapse border border-black m-auto">
         <tbody className="text-center  bg-indigo-400">
           {sudokuGrid.map((row, rowIndex) => (
@@ -156,7 +156,7 @@ function solveSudoku(row, col) {
         {Array.from({ length: N }, (_, i) => (
           <button
             key={i}
-            className="btn-number"
+            className="mr-2 border-solid border-2 border-emerald-500 p-2 text-emerald-500"
             onClick={() => setSelectedNumber(i + 1)}
           >
             {i + 1}
@@ -165,7 +165,7 @@ function solveSudoku(row, col) {
         {/* Agregar un botón para borrar */}
         <button
           key={0}
-          className="btn-number"
+          className="mr-2 border-solid border-2 border-emerald-500 p-2"
           onClick={() => setSelectedNumber(0)}
         >
           Borrar
